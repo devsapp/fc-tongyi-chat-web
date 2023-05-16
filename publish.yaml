@@ -3,7 +3,7 @@ Type: Application
 Name: fc-tongyi-chat-web
 Provider:
   - 阿里云
-Version: 0.0.1
+Version: dev
 Description: 使用serverless devs部署通义千问对话服务
 HomePage: 项目首页地址
 Tags: #标签详情
