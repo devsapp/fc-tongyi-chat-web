@@ -8,6 +8,7 @@ import { devtools } from 'zustand/middleware'
 // import { loading } from '../utils/notification';
 
 export const useGlobalStore = create<any>(devtools((set) => ({
+    special: false,
     tasks: DEFAULT_CONF.tasks,
     builtinPrompts: {},
     currentTask: DEFAULT_CONF.tasks[0],
