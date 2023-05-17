@@ -8,6 +8,7 @@ import { useRef } from 'react'
 
 
 export function Chatbox() {
+    const special = useGlobalStore(state => state.special);
     const config = useGlobalStore(state => state.config);
     const history = useGlobalStore(state => state.history);
     const viewport = useRef<HTMLDivElement>(null);
@@ -24,7 +25,7 @@ export function Chatbox() {
                     config?.freeCapacity ? 
                     <Alert className='chatbox-alert-tip' icon={<IconAlertCircle size="1rem" />} color="gray">
 
-                                <span style={{'color': '#777'}}>{`每个阿里云账号拥有${config?.freeCapacity}次通义千问调用额度`} </span>
+                                <span style={{'color': '#777'}}>{ special ? `本页面仅限模拟体验，您可以部署自己的通义千问机器人` : `每个阿里云账号拥有${config?.freeCapacity}次通义千问调用额度`} </span>
                     </Alert>
                     :
                     null
