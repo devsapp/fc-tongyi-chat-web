@@ -6,9 +6,12 @@ import { chat } from '../../api';
 import { TONGYI_UID } from '../../config/constant';
 import { error } from '../../utils/notification';
 export function DialogInput(props: { scrollToBottom: () => any }) {
+    const special = useGlobalStore(state => state.special);
     const setLoading = useGlobalStore(state => state.setLoading);
     const loading = useGlobalStore(state => state.loading);
     const user = useGlobalStore(state => state.user);
+    const appendFailedConversation = useGlobalStore(state => state.appendFailedConversation);
+    const appendLoadingConversation = useGlobalStore(state => state.appendLoadingConversation);
     const appendConversation = useGlobalStore(state => state.appendConversation);
     const builtinPrompts = useGlobalStore(state => state.builtinPrompts);
     const currentTask = useGlobalStore(state => state.currentTask);
@@ -21,25 +24,31 @@ export function DialogInput(props: { scrollToBottom: () => any }) {
         setLoading(true)
         try {
             appendConversation(prompt, user.uid )
+            appendLoadingConversation()
             props.scrollToBottom();
             const result = await chat({ prompt, uid: user.uid })
             appendConversation(result.data?.output?.text, TONGYI_UID )
             props.scrollToBottom();
         } catch(e) {
-            error({ title: '出错了', message: '网络异常' })
+            // error({ title: '出错了', message: '网络异常' })
+            console.error('network error', e);
+            appendFailedConversation();
             setLoading(false)
         }
         setLoading(false)
     }
     return (
         <Box className='dialog-input'>
+            {/* {
+                loading ? <span className='dialog-input-loading'>AI正在思考中...</span> : null
+            } */}
             <Select
                 className='dialog-input-select'
                 data={data}
-                placeholder="选择或输入你的问题"
+                placeholder={"请选择你的问题"}
                 nothingFound="Nothing found"
-                searchable
-                creatable
+                searchable={!special}
+                creatable={!special}
                 clearable
                 w={'100%'}
                 value={prompt}
