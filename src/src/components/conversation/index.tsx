@@ -82,7 +82,9 @@ export function Conversation(props: { item: any }) {
                 paddingLeft: '20px',
                 paddingRight: '20px',
             })}>
-            <Markdown value={props.item.content} renderer={renderer} />
+            {
+                _.startsWith(props.item.content, '$') ? props.item.content : <Markdown value={props.item.content} renderer={renderer} />
+            }
         </Card>
     </Box>
     )
