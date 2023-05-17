@@ -10,17 +10,20 @@ const api = axios.create({
 api.interceptors.response.use(
     response => {
         if (response.status >= 300 || response.status < 200) {
-            error({ title: '出错了', message: '网络异常' })
+            // error({ title: '出错了', message: '网络异常' })
+            useGlobalStore.getState().appendFailedConversation('网络异常，请您稍后重试');
             useGlobalStore.getState().setLoading(false);
             return ;
         }
         if (response?.data.success !== true) {
-            error({ title: '出错了', message: response.data.message })
+            // error({ title: '出错了', message: response.data.message })
+            useGlobalStore.getState().appendFailedConversation(response.data.message);
             useGlobalStore.getState().setLoading(false);
             return ;
         }
         if (response.data?.data?.code) {
-            error({ title: response.data?.data?.code, message: response.data?.data?.message })
+            // error({ title: response.data?.data?.code, message: response.data?.data?.message })
+            useGlobalStore.getState().appendFailedConversation(response.data?.data?.message);
             useGlobalStore.getState().setLoading(false);
             return ;
         }
@@ -28,7 +31,8 @@ api.interceptors.response.use(
         return response.data;
     },
     error => {
-        error({ title: '出错了', message: '未知错误' });
+        // error({ title: '出错了', message: '未知错误' });
+        useGlobalStore.getState().appendFailedConversation('服务发生了错误，请您稍后重试');
         useGlobalStore.getState().setLoading(false);
         return Promise.reject(error);
     }
