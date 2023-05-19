@@ -1,0 +1,35 @@
+.want-more {
+    display: block;
+    // position: relative;
+    &-close {
+        position: absolute;
+        right: 0;
+        color: #e3e3e3;
+    }
+    &-title {
+        position: relative;
+        display: block;
+        color: #e3e3e3;
+        font-size: 30px;
+        font-weight: bold;
+        margin-bottom: 50px;
+        &-close {
+            position: absolute;
+            right: 10px;
+            top: 0px;
+            color: #e3e3e3;
+            cursor: pointer;
+        }
+    }
+    &-content {
+        display: block;
+        color: #e3e3e3;
+        &-cards {
+            margin-top: 30px;
+            &-card {
+                display: inline-block;
+                margin-right: 20px;
+            }
+        }
+    }
+}

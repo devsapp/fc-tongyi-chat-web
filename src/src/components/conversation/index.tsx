@@ -61,15 +61,6 @@ export function Conversation(props: { item: any }) {
             className={classNames(['conversation', { 'me': props.item.from !== TONGYI_UID }])}
             sx={(theme) => ({
                 backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.white,
-                // textAlign: 'center',
-                // padding: theme.spacing.xl,
-                // borderRadius: theme.radius.md,
-                // cursor: 'pointer',
-
-                // '&:hover': {
-                // backgroundColor:
-                //     theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[1],
-                // },
             })}
         >
         <Avatar className='conversation-avator' color="cyan" radius="xl">
@@ -83,7 +74,7 @@ export function Conversation(props: { item: any }) {
                 paddingRight: '20px',
             })}>
             {
-                _.startsWith(props.item.content, '$') ? props.item.content : <Markdown value={props.item.content} renderer={renderer} />
+                _.startsWith(props.item.id, '$') ? props.item.content : <Markdown value={props.item.content} renderer={renderer} />
             }
         </Card>
     </Box>

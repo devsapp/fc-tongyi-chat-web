@@ -4,13 +4,17 @@ import { useState } from 'react'
 import { useGlobalStore } from '../../composerables/state';
 import { chat } from '../../api';
 import { TONGYI_UID } from '../../config/constant';
-import { error } from '../../utils/notification';
+// import { refreshRemainTimes } from '../../utils/action';
+// import { error } from '../../utils/notification';
 export function DialogInput(props: { scrollToBottom: () => any }) {
     const special = useGlobalStore(state => state.special);
+    // const wantMore = useGlobalStore(state => state.wantMore);
+    const remainTimes = useGlobalStore(state => state.remainTimes);
     const setLoading = useGlobalStore(state => state.setLoading);
     const loading = useGlobalStore(state => state.loading);
     const user = useGlobalStore(state => state.user);
-    const appendFailedConversation = useGlobalStore(state => state.appendFailedConversation);
+    const updateWantMore = useGlobalStore(state => state.updateWantMore);
+    const reduceRemainTimes = useGlobalStore(state => state.reduceRemainTimes);
     const appendLoadingConversation = useGlobalStore(state => state.appendLoadingConversation);
     const appendConversation = useGlobalStore(state => state.appendConversation);
     const builtinPrompts = useGlobalStore(state => state.builtinPrompts);
@@ -29,14 +33,21 @@ export function DialogInput(props: { scrollToBottom: () => any }) {
             const result = await chat({ prompt, uid: user.uid })
             appendConversation(result.data?.output?.text, TONGYI_UID )
             props.scrollToBottom();
+            reduceRemainTimes();
         } catch(e) {
             // error({ title: '出错了', message: '网络异常' })
             console.error('network error', e);
-            appendFailedConversation();
+            // appendFailedConversation();
             setLoading(false)
         }
         setLoading(false)
+        // refreshRemainTimes()
     }
+
+    const showMore = () => {
+        updateWantMore(true);
+    }
+
     return (
         <Box className='dialog-input'>
             {/* {
@@ -45,7 +56,7 @@ export function DialogInput(props: { scrollToBottom: () => any }) {
             <Select
                 className='dialog-input-select'
                 data={data}
-                placeholder={"请选择你的问题"}
+                placeholder={ special ? "请选择你的问题" : "请选择或输入你的问题"}
                 nothingFound="Nothing found"
                 searchable={!special}
                 creatable={!special}
@@ -60,11 +71,25 @@ export function DialogInput(props: { scrollToBottom: () => any }) {
                 //     return item;
                 // }}
             />
-            <Button className='dialog-input-button' onClick={send} disabled={loading}>
-                {
-                    loading ? '处理中...' : '立即发送'
-                }
-            </Button>
+            {
+                remainTimes > 0 ? (
+                    <Button className='dialog-input-button' onClick={send} disabled={loading}>
+                        {/* {
+                            remainTimes <= 0 ? '体验额度已耗尽' : null
+                        } */}
+                        {
+                            loading ? `处理中（剩余${remainTimes}次）...` : `立即发送（剩余${remainTimes}次）`
+                        }
+                    </Button>
+                ) : (
+                    <Button className='dialog-input-button' onClick={showMore} disabled={remainTimes === -100}>
+                        {
+                            (remainTimes === -100) ? '初始化中' : '开启更多精彩活动'
+                        }
+                    </Button>
+                )
+            }
+            
         </Box>
     )
 }

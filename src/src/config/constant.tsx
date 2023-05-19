@@ -53,3 +53,31 @@ export const Avatars = {
     [TONGYI_UID]: tongyiIcon,
     'user': <IconUserCircle />
 } 
+
+
+export const MORE_SCENCE = [
+    {
+        title: '文生图',
+        description: '基于函数计算一键部署 Stable Diffusion',
+        image: 'https://img.alicdn.com/imgextra/i1/O1CN01R2ndbT1Z0xiEUQjJX_!!6000000003133-0-tps-1440-1080.jpg',
+        url: 'https://developer.aliyun.com/adc/scenario/e71ae1062a4f405e8ed80c0dd0ea2156',
+    },
+    {
+        title: '图生图',
+        description: '基于函数计算一键部署 3D 卡通风格迁移模型',
+        image: 'https://img.alicdn.com/imgextra/i4/O1CN01GelIF11jjWPB5uMli_!!6000000004584-0-tps-1440-1080.jpg',
+        url: 'https://developer.aliyun.com/adc/scenario/c337057d6e1242b2b9bd74271a7b0e4c'
+    },
+    {
+        title: '图生文',
+        description: '基于函数计算一键部署 图像描述模型',
+        image: 'https://img.alicdn.com/imgextra/i3/O1CN01mgbTXD29k8x84btQB_!!6000000008105-0-tps-1440-1080.jpg',
+        url: 'https://developer.aliyun.com/adc/scenario/a26b84b9e2d343718949e21040a034cd'
+    },
+    {
+        title: '文生文',
+        description: '基于函数计算一键部署 ChatYuan 模型',
+        image: 'https://img.alicdn.com/imgextra/i1/O1CN01YQL9Yg1wDXksGiCdg_!!6000000006274-0-tps-1440-1080.jpg',
+        url: 'https://developer.aliyun.com/adc/scenario/e1c6e573bd5343a0aef54723854029e3'
+    },
+]

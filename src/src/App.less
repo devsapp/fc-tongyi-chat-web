@@ -40,3 +40,19 @@
 .read-the-docs {
   color: #888;
 } */
+
+
+@keyframes text-loading {
+  0% {color: #333;}
+  50% {color: #888;}
+  100% {color: #333;}
+}
+
+.ai-loading {
+  font-weight: bold;
+  line-height: 38px;
+  animation-name: text-loading;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}

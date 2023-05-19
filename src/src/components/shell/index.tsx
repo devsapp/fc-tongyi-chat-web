@@ -3,12 +3,13 @@ import './index.less';
 import { Nav } from '../navbar';
 import { Chatbox } from '../chatbox';
 import { useGlobalStore } from '../../composerables/state';
+import classNames from 'classnames';
 
 export function Shell() {
   const special = useGlobalStore(state => state.special);
   return (
     <AppShell
-      className='app-shell'
+      className={classNames(['app-shell', { special, 'common': !special }])}
       padding="md"
       navbar={<Nav></Nav>}
       header={
