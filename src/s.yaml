@@ -22,7 +22,7 @@ name: fc-tongyi-chat-web
 access: '{{ access }}'
 
 vars: # 全局变量
-  region: "cn-hangzhou"
+  region: "{{ region }}"
   functionName: "web"
   service:
     name: "chat-tongyi-web"
