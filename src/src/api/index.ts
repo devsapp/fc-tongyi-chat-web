@@ -48,7 +48,7 @@ api.interceptors.response.use(
 
 // export async function getConfig() {}
 
-export async function chat(payload: { prompt: string, uid: string }) {
+export async function chat(payload: { prompt?: string, uid: string, promptId?: string }) {
     return api.post(
         '/api/conversation', 
         payload

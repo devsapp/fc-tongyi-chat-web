@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid'
-import tongyiIcon from '../assets/tongyi.png';
-import { IconUserCircle } from '@tabler/icons-react';
+// import tongyiIcon from '../assets/tongyi.png';
+// import { IconUserCircle } from '@tabler/icons-react';
 
 export const TONGYI_UID = '$tongyi';
 
@@ -50,8 +50,8 @@ export const INITIAL_CONVERSATION = [
 
 
 export const Avatars = {
-    [TONGYI_UID]: tongyiIcon,
-    'user': <IconUserCircle />
+    [TONGYI_UID]: <img width="100%" src='https://img.alicdn.com/imgextra/i1/O1CN01M12g6h1U8gJQHcjem_!!6000000002473-2-tps-219-219.png' />,
+    'user': <img width="100%" src='https://img.alicdn.com/imgextra/i4/O1CN01zJMPkf1vvDtzGGQKW_!!6000000006234-2-tps-144-144.png' />
 } 
 
 

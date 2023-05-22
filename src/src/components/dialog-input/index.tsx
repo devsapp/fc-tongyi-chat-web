@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useGlobalStore } from '../../composerables/state';
 import { chat } from '../../api';
 import { TONGYI_UID } from '../../config/constant';
+import _ from 'lodash';
 // import { refreshRemainTimes } from '../../utils/action';
 // import { error } from '../../utils/notification';
 export function DialogInput(props: { scrollToBottom: () => any }) {
@@ -19,18 +20,18 @@ export function DialogInput(props: { scrollToBottom: () => any }) {
     const appendConversation = useGlobalStore(state => state.appendConversation);
     const builtinPrompts = useGlobalStore(state => state.builtinPrompts);
     const currentTask = useGlobalStore(state => state.currentTask);
-    const data = builtinPrompts[currentTask.id]?.map(p => ({ label: p.content, value: p.content })) ?? [];
+    const data = builtinPrompts[currentTask.id]?.map(p => ({ label: p.content, value: p.id })) ?? [];
     // console.log('data', builtinPrompts[currentTask.id]?.map(p => ({ label: p.content, value: p.content })))
-    const [prompt, setPrompt] = useState<string | null>(null);
+    const [prompt, setPrompt] = useState<{ content: string; id?: string; } | null>(null);
     const send = async () => {
-        if (!prompt) return ;
-        setPrompt(null)
+        if (prompt?.content?.length === 0 && !prompt?.id) return ;
+        setPrompt({ content: '' })
         setLoading(true)
         try {
-            appendConversation(prompt, user.uid )
+            appendConversation(prompt?.content, user.uid )
             appendLoadingConversation()
             props.scrollToBottom();
-            const result = await chat({ prompt, uid: user.uid })
+            const result = await chat({ prompt: prompt?.content, promptId: prompt?.id, uid: user.uid })
             appendConversation(result.data?.output?.text, TONGYI_UID )
             props.scrollToBottom();
             reduceRemainTimes();
@@ -47,7 +48,6 @@ export function DialogInput(props: { scrollToBottom: () => any }) {
     const showMore = () => {
         updateWantMore(true);
     }
-
     return (
         <Box className='dialog-input'>
             {/* {
@@ -62,14 +62,13 @@ export function DialogInput(props: { scrollToBottom: () => any }) {
                 creatable={!special}
                 clearable
                 w={'100%'}
-                value={prompt}
+                value={prompt?.id ?? prompt?.content}
                 getCreateLabel={(query) => `+ 自由输入： ${query}`}
-                onChange={(value) => setPrompt(value)}
-                // onCreate={(query) => {
-                //     const item = { value: query, label: query };
-                //     setData((current) => [...current, item]);
-                //     return item;
-                // }}
+                onChange={(value) => {
+                    const payload = _.isNaN(parseInt(value ?? '')) ? { content: value ?? '' } : { content: data.find(it => it.value === value).label ?? '', id: value ?? '' }
+                    setPrompt(payload)
+                }}
+                // onSelect={(value) => console.log('onSelect', value)}
             />
             {
                 remainTimes > 0 ? (

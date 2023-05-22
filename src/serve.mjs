@@ -16,6 +16,7 @@ app.use('/api', createProxyMiddleware({
   onProxyReq: (proxyReq, req) => {
     proxyReq.setHeader('x-ty-ak', req.get('x-fc-access-key-id') ?? '');
     proxyReq.setHeader('x-ty-sk', req.get('x-fc-access-key-secret') ?? '');
+    proxyReq.setHeader('x-ty-st', req.get('x-fc-security-token') ?? '');
   }
 }));
 

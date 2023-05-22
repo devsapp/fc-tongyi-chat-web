@@ -176,7 +176,15 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.19.0"
 
-"@babel/runtime@^7.10.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.13.10", "@babel/runtime@^7.18.3", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.7":
+"@babel/polyfill@^7.12.1":
+  "integrity" "sha1-Hy1jcdEmG72WHzxdWQkVDhLQvZY="
+  "resolved" "https://registry.npm.alibaba-inc.com/@babel/polyfill/download/@babel/polyfill-7.12.1.tgz"
+  "version" "7.12.1"
+  dependencies:
+    "core-js" "^2.6.5"
+    "regenerator-runtime" "^0.13.4"
+
+"@babel/runtime@^7.10.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.13.10", "@babel/runtime@^7.17.9", "@babel/runtime@^7.18.3", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.7":
   "integrity" "sha512-8jI69toZqqcsnqGGqwGS4Qb1VwLOEp4hz+CXPywcvjs60u3B4Pom/U/7rm4W8tMOYEB+E9wgD0mW1l3r8qlI9Q=="
   "resolved" "https://registry.npm.alibaba-inc.com/@babel/runtime/download/@babel/runtime-7.21.5.tgz"
   "version" "7.21.5"
@@ -1330,6 +1338,16 @@
   "version" "2.0.6"
   dependencies:
     "is-what" "^3.14.1"
+
+"core-js@^2.6.5":
+  "integrity" "sha1-2TM9+nsGXjR8xWgiGdb2kIWcwuw="
+  "resolved" "https://registry.npm.alibaba-inc.com/core-js/download/core-js-2.6.12.tgz"
+  "version" "2.6.12"
+
+"core-js@^3.22.5":
+  "integrity" "sha512-uBJiDmwqsbJCWHAwjrx3cvjbMXP7xD72Dmsn5LOJpiRmE3WbBbN5rCqQ2Qh6Ek6/eOrjlWngEynBWo4VxerQhg=="
+  "resolved" "https://registry.npm.alibaba-inc.com/core-js/download/core-js-3.30.2.tgz"
+  "version" "3.30.2"
 
 "cosmiconfig@^7.0.0":
   "integrity" "sha512-AdmX6xUzdNASswsFtmwSt7Vj8po9IuqXm0UXz7QKPuEUmPB4XyjGfaAr2PSuELMwkRMVH1EpIkX5bTZGRB3eCA=="
@@ -3069,7 +3087,7 @@
   dependencies:
     "loose-envify" "^1.1.0"
 
-"regenerator-runtime@^0.13.11":
+"regenerator-runtime@^0.13.11", "regenerator-runtime@^0.13.4":
   "integrity" "sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg=="
   "resolved" "https://registry.npm.alibaba-inc.com/regenerator-runtime/download/regenerator-runtime-0.13.11.tgz"
   "version" "0.13.11"
@@ -3574,6 +3592,15 @@
     "rollup" "^3.21.0"
   optionalDependencies:
     "fsevents" "~2.3.2"
+
+"watermark-plus@^1.5.4":
+  "integrity" "sha512-ULWt78yxq8R8MIKA2QpvmBJqGvVuU/1D1Mih+tSx/hcChxRJfRo/w9GWy9TV/3Drnlwj6n2TlA+9an++yT/GVA=="
+  "resolved" "https://registry.npm.alibaba-inc.com/watermark-plus/download/watermark-plus-1.5.4.tgz"
+  "version" "1.5.4"
+  dependencies:
+    "@babel/polyfill" "^7.12.1"
+    "@babel/runtime" "^7.17.9"
+    "core-js" "^3.22.5"
 
 "which@^2.0.1":
   "integrity" "sha1-fGqN0KY2oDJ+ELWckobu6T8/UbE="

@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import './index.less';
-import { Box, Avatar, Card, Image } from '@mantine/core';
+import { Box, Avatar, Card } from '@mantine/core';
 import { Avatars, TONGYI_UID } from '../../config/constant';
 import Markdown from 'marked-react';
 import Lowlight from 'react-lowlight';
@@ -24,6 +24,7 @@ import lua from 'highlight.js/lib/languages/lua';
 import less from 'highlight.js/lib/languages/less';
 import scss from 'highlight.js/lib/languages/scss';
 import _ from 'lodash';
+// import { useGlobalStore } from '../../composerables/state';
 
 const languages = {
     'js': javascript,
@@ -55,7 +56,7 @@ const renderer = {
   };
 
 export function Conversation(props: { item: any }) {
-
+    // const loading = useGlobalStore(state => state.loading);
     return (
         <Box
             className={classNames(['conversation', { 'me': props.item.from !== TONGYI_UID }])}
@@ -64,7 +65,7 @@ export function Conversation(props: { item: any }) {
             })}
         >
         <Avatar className='conversation-avator' color="cyan" radius="xl">
-            { props.item.from === TONGYI_UID ? <Image src={Avatars[TONGYI_UID]}/> : Avatars.user }
+            { props.item.from === TONGYI_UID ? Avatars[TONGYI_UID] : Avatars.user }
         </Avatar>
         <Card className='conversation-content' pl="10" pr="10" pt="0" pb='0' ml="xl" mr='xl' radius='md'
             sx={(theme) => ({ 
@@ -77,6 +78,9 @@ export function Conversation(props: { item: any }) {
                 _.startsWith(props.item.id, '$') ? props.item.content : <Markdown value={props.item.content} renderer={renderer} />
             }
         </Card>
+        {
+            (props.item.from === TONGYI_UID) ? <span className='conversation-law-tips'>内容均由人工智能模型生成，其准确性和完整性无法保证，不代表我们的态度或观点。</span> : null
+        }
     </Box>
     )
 }

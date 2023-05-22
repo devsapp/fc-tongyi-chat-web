@@ -1,10 +1,35 @@
 .conversation {
+    position: relative;
     display: flex;
     padding-right: 20px;
+    margin-bottom: 40px;
     &-avator {
+        background-color: #fff;
     }
     &-content {
-        max-width: 1200px;
+        max-width: 1000px;
+    }
+    &-law-tips {
+        position: absolute;
+        bottom: -30px;
+        margin-left: 70px;
+        display: block;
+        font-size: 12px;
+        color: #888;
+    }
+    
+    td, th {
+        border: 1px solid #777;
+        padding: 0.5rem;
+        text-align: center;
+    }
+    
+    table {
+        border-collapse: collapse;
+    }
+    
+    tbody tr:nth-child(odd) {
+        background: #eee;
     }
 }
 
