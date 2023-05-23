@@ -14,6 +14,8 @@ Parameters:
   additionalProperties: false # 不允许增加其他属性
   required: # 必填项
     - region
+    - serviceName
+    - roleArn
   properties:
     region:
       title: 地域
@@ -25,16 +27,22 @@ Parameters:
         - cn-hangzhou
         - cn-shanghai
         - cn-shenzhen
-  roleArn:
-      title: RAM角色ARN
+    serviceName:
+      title: 服务名
       type: string
-      default: ''
-      pattern: '^acs:ram::[0-9]*:role/.*$'
-      description: 应用所属的函数计算服务配置的 role, 请提前创建好对应的 role, 授信函数计算服务, 并配置好 AliyunYundunGreenWebFullAccess 和 AliyunFCDefaultRolePolicy policy。
-      required: true
-      x-role:
-        name: AliyunFCDefaultRole
-        service: fc
-        authorities:
-          - AliyunYundunGreenWebFullAccess
-          - AliyunFCDefaultRolePolicy
+      default: zip-oss
+      pattern: "^[a-zA-Z_][a-zA-Z0-9-_]{0,127}$"
+      description: 应用所属的函数计算服务, 只能包含字母、数字、下划线和中划线。不能以数字、中划线开头。长度在 1-128 之间
+    roleArn:
+        title: RAM角色ARN
+        type: string
+        default: ''
+        pattern: '^acs:ram::[0-9]*:role/.*$'
+        description: 应用所属的函数计算服务配置的 role, 请提前创建好对应的 role, 授信函数计算服务, 并配置好 AliyunYundunGreenWebFullAccess 和 AliyunFCDefaultRolePolicy policy。
+        required: true
+        x-role:
+          name: AliyunFCDefaultRole
+          service: fc
+          authorities:
+            - AliyunYundunGreenWebFullAccess
+            - AliyunFCDefaultRolePolicy

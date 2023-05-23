@@ -51,7 +51,12 @@ services:
     #        - component: fc versions publish # 要运行的命令行
     props: # 组件的属性值
       region: ${vars.region} # 关于变量的使用方法，可以参考：https://www.serverless-devs.com/serverless-devs/yaml#变量赋值
-      service: ${vars.service}
+      # service: ${vars.service}
+      service:
+        name: "{{ serviceName }}"
+        description: Tongyi Qianwen Chat Bot Web
+        role: "{{ roleArn }}"
+        internetAccess: true
       function:
         name: ${vars.functionName}
         description: 'Serverless Devs Web Framework Function'
