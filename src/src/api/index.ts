@@ -1,6 +1,7 @@
 import axios from 'axios';
 // import { error } from '../utils/notification';
 import { useGlobalStore } from '../composerables/state';
+import { Version } from '../config/constant';
 
 const api = axios.create({
     baseURL: '/',
@@ -11,6 +12,7 @@ api.interceptors.request.use(
     config => {
         config.headers['x-tongyi-special'] = useGlobalStore.getState().special;
         config.headers['x-tongyi-uid'] = useGlobalStore.getState().user.uid;
+        config.headers['x-tongyi-version'] = Version;
         return config;
     }
 )

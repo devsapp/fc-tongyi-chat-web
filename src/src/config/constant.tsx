@@ -4,6 +4,8 @@ import { nanoid } from 'nanoid'
 
 export const TONGYI_UID = '$tongyi';
 
+export const Version = '1.0.0';
+
 export const DEFAULT_CONF = {
     tasks: [
         {
