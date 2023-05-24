@@ -5,6 +5,7 @@ import { useGlobalStore } from '../../composerables/state';
 import { chat } from '../../api';
 import { TONGYI_UID } from '../../config/constant';
 import _ from 'lodash';
+import { error } from '../../utils/notification';
 // import { refreshRemainTimes } from '../../utils/action';
 // import { error } from '../../utils/notification';
 export function DialogInput(props: { scrollToBottom: () => any }) {
@@ -24,7 +25,12 @@ export function DialogInput(props: { scrollToBottom: () => any }) {
     // console.log('data', builtinPrompts[currentTask.id]?.map(p => ({ label: p.content, value: p.content })))
     const [prompt, setPrompt] = useState<{ content: string; id?: string; } | null>(null);
     const send = async () => {
-        if (prompt?.content?.length === 0 && !prompt?.id) return ;
+        // if (prompt?.content?.length === 0 && !prompt?.id) return ;
+
+        if (_.isEmpty(_.trim(prompt?.content)) === true && !prompt?.id) {
+            return error({ title: '内容为空', message: '请输入正确的内容' });
+        }
+
         setPrompt({ content: '' })
         setLoading(true)
         try {
