@@ -16,7 +16,7 @@ export function WantMore() {
                 </div>
             </div>
             <div className="want-more-content">
-                更多活动可参与：
+                您可以<a href='https://developer.aliyun.com/adc/scenario/aed6fb72b0644a40a839740600507a88' target='_blank'>部署自己的通义千问机器人</a>，或参与其他活动：
                 <div className="want-more-content-cards">
                     {
                         MORE_SCENCE.map(
