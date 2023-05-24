@@ -14,7 +14,7 @@ const special = query?.special ?? null;
 
 export const useGlobalStore = create<any>(devtools((set) => ({
     special: !!special,
-    wantMore: false,
+    wantMore: true,
     tasks: DEFAULT_CONF.tasks,
     builtinPrompts: {},
     currentTask: DEFAULT_CONF.tasks[0],

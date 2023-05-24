@@ -6,17 +6,23 @@ import { Overlay, Card, Image, Group, Text, Badge } from '@mantine/core';
 import { IconX } from '@tabler/icons-react';
 export function WantMore() {
     const updateWantMore = useGlobalStore(state => state.updateWantMore);
+    const special = useGlobalStore(state => state.special);
     return (
         <Overlay blur={5} center className="want-more">
             <div className="wrap">
             <div className="want-more-title">
-                恭喜您已经通关通义千问预体验活动！
+                {
+                    special ? 
+                        <span>您的在线体验次数已用完<br /><a href='https://developer.aliyun.com/adc/scenario/aed6fb72b0644a40a839740600507a88' target='_blank'>立即部署通义千问预体验应用</a>，开启自由对话</span>
+                        :
+                        <span>您的在线体验次数已用完</span>
+                }
                 <div className="want-more-title-close" onClick={() => updateWantMore(false)}>
                     <IconX />
                 </div>
             </div>
             <div className="want-more-content">
-                您可以<a href='https://developer.aliyun.com/adc/scenario/aed6fb72b0644a40a839740600507a88' target='_blank'>部署自己的通义千问机器人</a>，或参与其他活动：
+                部署更多 AIGC应用：
                 <div className="want-more-content-cards">
                     {
                         MORE_SCENCE.map(
