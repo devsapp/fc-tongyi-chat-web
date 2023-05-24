@@ -46,3 +46,4 @@ Parameters:
           authorities:
             - AliyunYundunGreenWebFullAccess
             - AliyunFCDefaultRolePolicy
+            - AliyunFCFullAccess
