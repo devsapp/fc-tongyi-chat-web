@@ -30,9 +30,9 @@ export const Nav = () => {
                         )
                     )
                 }
-                <span className="navbar-tips">
+                {/* <span className="navbar-tips">
                     * 当前页面仅支持预设文案模拟体验，更多自由输入内容请在API服务开放后进行调用
-                </span>
+                </span> */}
             </Navbar>
         </>
     )

@@ -35,7 +35,7 @@ export const DEFAULT_CONF = {
         {
             id: 'more',
             title: '更多可能',
-            description: '通义千问还可以做更多有趣的事情，可以生成图片，可以查看菜谱，可以为你出谋划策。',
+            description: '通义千问还可以做更多有趣的事情，可以查看菜谱，可以为你出谋划策。',
             builtinPrompts: []
         },
     ]
