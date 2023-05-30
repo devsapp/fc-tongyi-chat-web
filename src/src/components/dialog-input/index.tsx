@@ -1,6 +1,6 @@
 import './index.less'
 import { Box, Autocomplete, Button } from '@mantine/core';
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useGlobalStore } from '../../composerables/state';
 import { chat } from '../../api';
 import { TONGYI_UID } from '../../config/constant';
@@ -9,7 +9,7 @@ import { error } from '../../utils/notification';
 // import { refreshRemainTimes } from '../../utils/action';
 // import { error } from '../../utils/notification';
 export function DialogInput(props: { scrollToBottom: () => any }) {
-
+    const ref = useRef<HTMLInputElement>(null);
     const special = useGlobalStore(state => state.special);
     // const wantMore = useGlobalStore(state => state.wantMore);
     const remainTimes = useGlobalStore(state => state.remainTimes);
@@ -58,6 +58,7 @@ export function DialogInput(props: { scrollToBottom: () => any }) {
                 loading ? <span className='dialog-input-loading'>AI正在思考中...</span> : null
             } */}
             <Autocomplete
+                ref={ref}
                 className='dialog-input-select'
                 data={data}
                 placeholder={ special ? "请选择你的问题" : "请选择或输入你的问题"}
@@ -71,6 +72,7 @@ export function DialogInput(props: { scrollToBottom: () => any }) {
                 onKeyDown={(event) => {
                     if (event.key === 'Enter') {
                         send()
+                        ref.current?.blur();
                     }
                 }}
                 onChange={(value) => {
