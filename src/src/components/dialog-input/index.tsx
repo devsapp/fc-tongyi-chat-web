@@ -1,6 +1,6 @@
 import './index.less'
-import { Box, Select, Button } from '@mantine/core';
-import { useState } from 'react'
+import { Box, Autocomplete, Button } from '@mantine/core';
+import { useState, useRef } from 'react'
 import { useGlobalStore } from '../../composerables/state';
 import { chat } from '../../api';
 import { TONGYI_UID } from '../../config/constant';
@@ -21,11 +21,10 @@ export function DialogInput(props: { scrollToBottom: () => any }) {
     const appendConversation = useGlobalStore(state => state.appendConversation);
     const builtinPrompts = useGlobalStore(state => state.builtinPrompts);
     const currentTask = useGlobalStore(state => state.currentTask);
-    const data = builtinPrompts[currentTask.id]?.map(p => ({ label: p.content, value: p.id })) ?? [];
+    const data = builtinPrompts[currentTask.id]?.map(p => ({ label: p.content, value: p.content, id: p.id })) ?? [];
     // console.log('data', builtinPrompts[currentTask.id]?.map(p => ({ label: p.content, value: p.content })))
     const [prompt, setPrompt] = useState<{ content: string; id?: string; } | null>(null);
     const send = async () => {
-        // if (prompt?.content?.length === 0 && !prompt?.id) return ;
 
         if (_.isEmpty(_.trim(prompt?.content)) === true && !prompt?.id) {
             return error({ title: '内容为空', message: '请输入正确的内容' });
@@ -59,22 +58,36 @@ export function DialogInput(props: { scrollToBottom: () => any }) {
             {/* {
                 loading ? <span className='dialog-input-loading'>AI正在思考中...</span> : null
             } */}
-            <Select
+            <Autocomplete
                 className='dialog-input-select'
                 data={data}
                 placeholder={ special ? "请选择你的问题" : "请选择或输入你的问题"}
-                nothingFound="Nothing found"
-                searchable={!special}
-                creatable={!special}
-                clearable
+                nothingFound={null}
+                // searchable={!special}
+                // creatable={!special}
+                // clearable
                 w={'100%'}
-                value={prompt?.id ?? prompt?.content}
-                getCreateLabel={(query) => `+ 自由输入： ${query}`}
-                onChange={(value) => {
-                    const payload = _.isNaN(parseInt(value ?? '')) ? { content: value ?? '' } : { content: data.find(it => it.value === value).label ?? '', id: value ?? '' }
-                    setPrompt(payload)
+                value={prompt?.content}
+                // getCreateLabel={(query) => `+ 自由输入： ${query}`}
+                onKeyDown={(event) => {
+                    if (event.key === 'Enter') {
+                        send()
+                    }
                 }}
-                // onSelect={(value) => console.log('onSelect', value)}
+                onChange={(value) => {
+                    console.log(value, 'value')
+                    // const payload = _.isNaN(parseInt(value ?? '')) ? { content: value ?? '' } : { content: data.find(it => it.value === value).label ?? '', id: value ?? '' }
+                    const payload = { content: value, id: builtinPrompts[currentTask.id].find(pr => pr.content === value)?.id }
+                    if (special) {
+                        if (payload.id) {
+                            setPrompt(payload)
+                        } else {
+                            setPrompt({ content: '' })
+                        }
+                    } else {
+                        setPrompt(payload)
+                    }
+                }}
             />
             {
                 remainTimes > 0 ? (

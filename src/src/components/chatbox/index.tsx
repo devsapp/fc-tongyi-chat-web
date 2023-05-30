@@ -24,7 +24,7 @@ export function Chatbox() {
                 {
                     config?.freeCapacity ? 
                     <Alert className='chatbox-alert-tip' icon={<IconAlertCircle size="1rem" />} color="gray">
-                                <span style={{'color': '#777'}}>{ special ? `本页面仅限预体验，您可以在函数计算上部署自己的通义千问机器人` : `每个阿里云账号拥有${config?.freeCapacity}次通义千问体验额度`} </span>
+                                <span style={{'color': '#777'}}>{ special ? <span>本页面仅限预体验，点击<a href='https://developer.aliyun.com/adc/scenario/aed6fb72b0644a40a839740600507a88' target='_blank'>立即部署</a>，获得30次自由对话机会</span> : `每个阿里云账号拥有${config?.freeCapacity}次通义千问体验额度`} </span>
                     </Alert>
                     :
                     null

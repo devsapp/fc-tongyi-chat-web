@@ -5,6 +5,7 @@ import classnames from 'classnames';
 
 export const Nav = () => {
     const tasks = useGlobalStore((state: any) => state.tasks);
+    const special = useGlobalStore((state: any) => state.special);
     const currentTask = useGlobalStore((state: any) => state.currentTask);
     const updateCurrentTask = useGlobalStore(state => state.updateCurrentTask)
     return (
@@ -30,9 +31,13 @@ export const Nav = () => {
                         )
                     )
                 }
-                <span className="navbar-tips">
-                    * 当前页面仅支持预设文案模拟体验，更多自由输入内容请在API服务开放后进行调用
-                </span>
+                {
+                    special ? 
+                    (<span className="navbar-tips">
+                        * 当前页面仅支持预设文案模拟体验，更多自由输入内容请在API服务开放后进行调用
+                    </span>)
+                    : null
+                }
             </Navbar>
         </>
     )

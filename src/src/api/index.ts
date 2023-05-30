@@ -4,8 +4,8 @@ import { useGlobalStore } from '../composerables/state';
 import { Version } from '../config/constant';
 
 const api = axios.create({
-    baseURL: '/',
-    // baseURL: 'http://fc-internal-tongyi-func.fc-internal-tongyi-service2.1740298130743624.cn-hangzhou.fc.devsapp.net',
+    // baseURL: '/',
+    baseURL: 'http://fc-internal-tongyi-func.fc-internal-tongyi-service2.1740298130743624.cn-hangzhou.fc.devsapp.net',
 });
 
 api.interceptors.request.use(
