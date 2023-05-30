@@ -9,7 +9,6 @@ import { error } from '../../utils/notification';
 // import { refreshRemainTimes } from '../../utils/action';
 // import { error } from '../../utils/notification';
 export function DialogInput(props: { scrollToBottom: () => any }) {
-    let timmer: any = null;
 
     const special = useGlobalStore(state => state.special);
     // const wantMore = useGlobalStore(state => state.wantMore);
@@ -50,23 +49,9 @@ export function DialogInput(props: { scrollToBottom: () => any }) {
         setLoading(false)
         // refreshRemainTimes()
     }
-    const handleKeyDown = (event) => {
-        if (event.key === 'Enter') {
-            if (_.isEmpty(_.trim(prompt?.content)) === true && !prompt?.id) {
-                return
-            }
-            send();
-        }
-    }
     const showMore = () => {
         updateWantMore(true);
     }
-    useEffect(() => {
-        window.addEventListener('keydown', handleKeyDown);
-        return () => {
-            window.removeEventListener('keydown', handleKeyDown);
-        };
-    }, [prompt]);
     return (
         <Box className='dialog-input'>
             {/* {
