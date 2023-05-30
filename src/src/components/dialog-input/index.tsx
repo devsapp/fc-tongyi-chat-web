@@ -9,6 +9,8 @@ import { error } from '../../utils/notification';
 // import { refreshRemainTimes } from '../../utils/action';
 // import { error } from '../../utils/notification';
 export function DialogInput(props: { scrollToBottom: () => any }) {
+    let timmer: any = null;
+
     const special = useGlobalStore(state => state.special);
     // const wantMore = useGlobalStore(state => state.wantMore);
     const remainTimes = useGlobalStore(state => state.remainTimes);
@@ -24,23 +26,22 @@ export function DialogInput(props: { scrollToBottom: () => any }) {
     const data = builtinPrompts[currentTask.id]?.map(p => ({ label: p.content, value: p.content, id: p.id })) ?? [];
     // console.log('data', builtinPrompts[currentTask.id]?.map(p => ({ label: p.content, value: p.content })))
     const [prompt, setPrompt] = useState<{ content: string; id?: string; } | null>(null);
-    const send = async () => {
 
+    const send = async () => {
         if (_.isEmpty(_.trim(prompt?.content)) === true && !prompt?.id) {
             return error({ title: '内容为空', message: '请输入正确的内容' });
         }
-
         setPrompt({ content: '' })
         setLoading(true)
         try {
-            appendConversation(prompt?.content, user.uid )
+            appendConversation(prompt?.content, user.uid)
             appendLoadingConversation()
             props.scrollToBottom();
             const result = await chat({ prompt: prompt?.content, promptId: prompt?.id, uid: user.uid })
-            appendConversation(result.data?.output?.text, TONGYI_UID )
+            appendConversation(result.data?.output?.text, TONGYI_UID)
             props.scrollToBottom();
             reduceRemainTimes();
-        } catch(e) {
+        } catch (e) {
             // error({ title: '出错了', message: '网络异常' })
             console.error('network error', e);
             // appendFailedConversation();
@@ -49,10 +50,23 @@ export function DialogInput(props: { scrollToBottom: () => any }) {
         setLoading(false)
         // refreshRemainTimes()
     }
-
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            if (_.isEmpty(_.trim(prompt?.content)) === true && !prompt?.id) {
+                return
+            }
+            send();
+        }
+    }
     const showMore = () => {
         updateWantMore(true);
     }
+    useEffect(() => {
+        window.addEventListener('keydown', handleKeyDown);
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [prompt]);
     return (
         <Box className='dialog-input'>
             {/* {
@@ -107,7 +121,7 @@ export function DialogInput(props: { scrollToBottom: () => any }) {
                     </Button>
                 )
             }
-            
+
         </Box>
     )
 }
