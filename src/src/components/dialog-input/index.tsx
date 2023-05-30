@@ -1,6 +1,6 @@
 import './index.less'
 import { Box, Autocomplete, Button } from '@mantine/core';
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import { useGlobalStore } from '../../composerables/state';
 import { chat } from '../../api';
 import { TONGYI_UID } from '../../config/constant';
